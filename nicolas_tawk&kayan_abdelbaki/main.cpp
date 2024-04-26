@@ -9,9 +9,7 @@
 
 int main(int argc, const char * argv[]) {
     // insert code here...
-    std::cout << "Hello, nicolas heyyyy" ;
-    std::cout <<  "hello again ";
+    std::cout << "Hello, nicolas heyyyy";
     return 0;
     //testing
-    // from nicolas
 }
