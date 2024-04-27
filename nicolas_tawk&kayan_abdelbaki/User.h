@@ -6,7 +6,7 @@ class User {
 public:
 
     User(string name, string username, int phoneNumber, string mail, string lastName);
-    User(string name);
+    User(string username);
     string getName() const;
     int getId() const;
     vector<User*> getConnections();

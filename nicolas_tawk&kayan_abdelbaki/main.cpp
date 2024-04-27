@@ -4,35 +4,37 @@
 #include <unordered_map>
 using namespace std;
 
-int id = 0;
+
 unordered_map<int, User> users;
 
-int getUserIDByName(string name) {
+int getUserIDByUsername(string username) {
     for (const auto& pair : users) {
-        if (pair.second.getUsername() == name) {
+        if (pair.second.getUsername() == username) {
             return pair.first;
         }
     }
     return -1;
 }
 void addUser(Graph network) {
-    string name;
+    string username;
     cout << "Enter the name of the user : ";
-    cin >> name;
+    cin >> username;
+    User user = User(username);
 
-    users[id] = User(name);
+    int id = getUserIDByUsername(username);
+    users[id] = user ;
     network.addVertex(id);
 }
 
 void addConnection(Graph network) {
     string follower, followed;
-    cout << "Enter the name of the follower : ";
+    cout << "Enter the username of the follower : ";
     cin >> follower;
-    cout << "Enter the name of the followed : ";
+    cout << "Enter the username of the followed : ";
     cin >> followed;
 
-    int  follower_id = getUserIDByName(follower);
-    int followed_id = getUserIDByName(followed);
+    int  follower_id = getUserIDByUsername(follower);
+    int followed_id = getUserIDByUsername(followed);
     if (follower_id != -1 && followed_id != -1) {
         network.addEdge(follower_id, followed_id);
     }
@@ -44,13 +46,13 @@ void addConnection(Graph network) {
 
 void removeConnection(Graph network) {
     string follower, followed;
-    cout << "Enter the name of the follower : ";
+    cout << "Enter the username of the follower : ";
     cin >> follower;
-    cout << "Enter the name of the followed : ";
+    cout << "Enter the username of the followed : ";
     cin >> followed;
 
-    int  follower_id = getUserIDByName(follower);
-    int followed_id = getUserIDByName(followed);
+    int  follower_id = getUserIDByUsername(follower);
+    int followed_id = getUserIDByUsername(followed);
 }
 
 void menu() {

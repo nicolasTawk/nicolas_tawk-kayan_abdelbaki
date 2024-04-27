@@ -17,13 +17,13 @@ User::User(string name , string username = "" , int phoneNumber = 0, string mail
     
 }
 
-User::User(string name){
+User::User(string username){
     this->id = nextID++;
-    setName(name);
+    setName("");
     setEmail("");
     setLastName("");
     setPhoneNumber(0);
-    setUsername("");
+    setUsername(username);
 }
 
 //getters and setters to the class in order to acess or change private data members exclusevley
