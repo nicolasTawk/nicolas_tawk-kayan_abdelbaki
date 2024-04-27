@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		458569B32BDCEC8F00340314 /* Graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 458569B22BDCEC8F00340314 /* Graph.cpp */; };
+		458569B62BDCECA600340314 /* User.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 458569B52BDCECA600340314 /* User.cpp */; };
 		45F7E92E2BD81773003E45E0 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45F7E92D2BD81773003E45E0 /* main.cpp */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +25,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		458569B22BDCEC8F00340314 /* Graph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Graph.cpp; sourceTree = "<group>"; };
+		458569B42BDCEC9700340314 /* Graph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Graph.h; sourceTree = "<group>"; };
+		458569B52BDCECA600340314 /* User.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = User.cpp; sourceTree = "<group>"; };
+		458569B72BDCECAD00340314 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		45F7E92A2BD81773003E45E0 /* nicolas_tawk&kayan_abdelbaki */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "nicolas_tawk&kayan_abdelbaki"; sourceTree = BUILT_PRODUCTS_DIR; };
 		45F7E92D2BD81773003E45E0 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -57,6 +63,10 @@
 		45F7E92C2BD81773003E45E0 /* nicolas_tawk&kayan_abdelbaki */ = {
 			isa = PBXGroup;
 			children = (
+				458569B72BDCECAD00340314 /* User.h */,
+				458569B52BDCECA600340314 /* User.cpp */,
+				458569B42BDCEC9700340314 /* Graph.h */,
+				458569B22BDCEC8F00340314 /* Graph.cpp */,
 				45F7E92D2BD81773003E45E0 /* main.cpp */,
 			);
 			path = "nicolas_tawk&kayan_abdelbaki";
@@ -119,6 +129,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				458569B62BDCECA600340314 /* User.cpp in Sources */,
+				458569B32BDCEC8F00340314 /* Graph.cpp in Sources */,
 				45F7E92E2BD81773003E45E0 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
