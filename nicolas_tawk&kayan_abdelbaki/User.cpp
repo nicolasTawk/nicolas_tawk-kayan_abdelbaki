@@ -6,13 +6,14 @@ using namespace std;
 //we used this static variable in order to keep track of the next id that can be used without duplication
 int User::nextID = 1;
 
-User::User(string mail, int phoneNumber, string name, string lastName){
+User::User(string name , string username , int phoneNumber = 0, string mail = "" , string lastName = ""){
     //auto incrementing the id as we create new objects from the class user
     this->id = nextID++;
     setName(name);
     setEmail(mail);
     setLastName(lastName);
     setPhoneNumber(phoneNumber);
+    setUsername(username);
     
 }
 
@@ -21,6 +22,13 @@ string User::getName() {
 	return name;
 }
 
+string User::getUsername(){
+    return username;
+}
+
+void User::setUsername(string username){
+    this -> username = username;
+}
 
 int User::getId() {
 	return id;

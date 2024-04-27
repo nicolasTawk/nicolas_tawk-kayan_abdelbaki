@@ -5,7 +5,7 @@ class User {
 
 public:
 
-    User(string mail, int phoneNumber, string name, string lastName);
+    User(string name, string username, int phoneNumber, string mail, string lastName);
 
     string getName();
     int getId();
@@ -21,9 +21,11 @@ public:
     int getPhoneNumber();
     string getLastName();
     void setLastName(string lastName);
-  
+    void setUsername(string username);
+    string getUsername();
 
 private:
+    string username;
     string name;
     string lastName;
     static int nextID;

@@ -20,7 +20,7 @@ void addUser(Graph network) {
     cout << "Enter the name of the user : ";
     cin >> name;
 
-    users[id] = User(id, name);
+    users[id] = User(name);
     network.addVertex(id);
 }
 
