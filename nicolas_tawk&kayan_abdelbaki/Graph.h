@@ -1,14 +1,35 @@
-#include <vector>
+// Graph.h
+
+#ifndef GRAPH_H
+#define GRAPH_H
+
 #include <list>
-#include <iostream>
+#include <vector>
+using namespace std;
+
+struct Edge {
+    int dest; 
+};
+
+
+struct Vertex {
+    int id;
+    list<Edge> adjacencyList; 
+
+    Vertex(int id);
+};
 
 class Graph {
 public:
-    Graph(int V); 
-    void addEdge(int v, int w); 
-    void printGraph(); 
-    void addVertex();
+    Graph() = default;
+
+    void addVertex(int id);
+    void addEdge(int srcId, int destId);
+    void removeEdge(int srcId, int destId);
+    void printGraph();
+
 private:
-    int V; 
-    std::vector<std::list<int>> adj; 
+    vector<Vertex> vertices; 
 };
+
+#endif 
