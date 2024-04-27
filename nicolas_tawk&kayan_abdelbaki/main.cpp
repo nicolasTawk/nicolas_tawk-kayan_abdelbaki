@@ -82,9 +82,9 @@ void handleChoice(Graph network, int choice) {
 }
 int main() {
     Graph network =  Graph();
-    User alice(1, "alice");
-    User bob(2, "bob");
-    User sam(3, "sam");
+    User alice("alice");
+    User bob("bob");
+    User sam("sam");
     
     network.addVertex(1);
     network.addVertex(2);
