@@ -7,8 +7,8 @@ public:
 
     User(string name, string username, int phoneNumber, string mail, string lastName);
 
-    string getName();
-    int getId();
+    string getName() const;
+    int getId() const;
     vector<User*> getConnections();
     void setName(string name);
     void setId(int id);
@@ -17,12 +17,12 @@ public:
     void printUserInfo() const;
     void setEmail(string mail);
     void setPhoneNumber(int number);
-    string getMail();
-    int getPhoneNumber();
-    string getLastName();
+    string getMail() const;
+    int getPhoneNumber() const;
+    string getLastName() const;
     void setLastName(string lastName);
     void setUsername(string username);
-    string getUsername();
+    string getUsername() const;
 
 private:
     string username;

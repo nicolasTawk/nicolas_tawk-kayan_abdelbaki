@@ -9,7 +9,7 @@ unordered_map<int, User> users;
 
 int getUserIDByName(string name) {
     for (const auto& pair : users) {
-        if (pair.second.getName() == name) {
+        if (pair.second.getUsername() == name) {
             return pair.first;
         }
     }

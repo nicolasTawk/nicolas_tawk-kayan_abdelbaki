@@ -18,11 +18,11 @@ User::User(string name , string username , int phoneNumber = 0, string mail = ""
 }
 
 //getters and setters to the class in order to acess or change private data members exclusevley
-string User::getName() {
+string User::getName() const{
 	return name;
 }
 
-string User::getUsername(){
+string User::getUsername() const{
     return username;
 }
 
@@ -30,7 +30,7 @@ void User::setUsername(string username){
     this -> username = username;
 }
 
-int User::getId() {
+int User::getId() const {
 	return id;
 }
 
@@ -50,11 +50,11 @@ void User::setPhoneNumber(int number){
     phoneNumber = number;
 }
 
-string User::getMail(){
+string User::getMail() const{
     return this -> mail;
 }
 
-int User::getPhoneNumber(){
+int User::getPhoneNumber() const{
     return this -> phoneNumber;
 }
 
