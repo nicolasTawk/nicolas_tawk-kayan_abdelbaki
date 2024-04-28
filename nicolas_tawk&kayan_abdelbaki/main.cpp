@@ -58,28 +58,29 @@ void removeConnection(Graph network) {
 void menu() {
     cout << "Enter a number from 1 to 20" << endl;
     cout << "1: Initialize the network" << endl;
-    cout << "1: Add a user to the network " << endl;
-    cout << "2: Add a connection to a user" << endl;
-    cout << "3: remove a connection from a user" << endl;
-    cout << "4: check if a user is connected to another" << endl;
-    cout << "5: remove a user from the network" << endl;
-    cout << "6: find the distance between two users" << endl;
-    cout << "7: illustrate the network" << endl;
-    cout << "8: print the details about a user" << endl;
-    cout << "9: get the followers of a user" << endl;
-    cout << "10: get the followings of a user" << endl;
-    cout << "11: traverse the network using BFS" << endl;
-    cout << "12: traverse the network using DFS" << endl;
+    cout << "2: Add a user to the network " << endl;
+    cout << "3: Add a connection to a user" << endl;
+    cout << "4: remove a connection from a user" << endl;
+    cout << "5: check if a user is connected to another" << endl;
+    cout << "6: remove a user from the network" << endl;
+    cout << "7: find the distance between two users" << endl;
+    cout << "8: illustrate the network" << endl;
+    cout << "9: print the details about a user" << endl;
+    cout << "10: get the followers of a user" << endl;
+    cout << "11: get the followings of a user" << endl;
+    cout << "12: traverse the network using BFS" << endl;
+    cout << "13: traverse the network using DFS" << endl;
 
-    cout << "11: empty the network" << endl;
-    cout << "12: exit" << endl;
+    cout << "14: empty the network" << endl;
+    cout << "15: exit" << endl;
 }
 
 void handleChoice(Graph network, int choice) {
     switch (choice) {
     case 1:
         cout << "hello";
-        // addUser(network);
+            break;
+     
     }
 }
 int main() {
@@ -106,13 +107,13 @@ int main() {
     do {
         menu();
         cin >> choice;
-        while (choice < 1 || choice > 12) {
-            cout << "Make sure the number is between 1 and 12 inclusively" << endl;
+        while (choice < 1 || choice > 15) {
+            cout << "Make sure the number is between 1 and 15 inclusively" << endl;
             cin >> choice;
         }
        // handleChoice(choice);
         
-    }while (choice != 12);
+    }while (choice != 15);
 
 
     return 0;

@@ -3,12 +3,17 @@
 #include "Graph.h"
 #include <iostream>
 
-Vertex::Vertex(int id) : id(id) {}
+//Vertex::Vertex(int id) : id(id) {}
 
 
+//void Graph::addVertex(int id) {
+    //vertices.push_back(id);
+//}
 void Graph::addVertex(int id) {
-    vertices.push_back(id);
+    Vertex newVertex(id);
+    vertices.push_back(newVertex);
 }
+
 
 
 void Graph::addEdge(int srcId, int destId) {
