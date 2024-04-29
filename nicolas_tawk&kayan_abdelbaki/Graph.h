@@ -22,7 +22,10 @@ struct Vertex {
 class Graph {
 public:
     Graph() = default;
-
+  
+    int shortestPath(int srcId, int destId);
+    void removeVertex(int id);
+    bool hasEdge(int srcId, int destId);
     void addVertex(int id);
     void addEdge(int srcId, int destId);
     void removeEdge(int srcId, int destId);

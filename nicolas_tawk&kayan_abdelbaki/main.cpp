@@ -55,6 +55,58 @@ void removeConnection(Graph network) {
     int followed_id = getUserIDByUsername(followed);
 }
 
+bool checkConnection(Graph& network, const string& username1, const string& username2) {
+    int id1 = getUserIDByUsername(username1);
+    int id2 = getUserIDByUsername(username2);
+    if (id1 == -1 || id2 == -1) {
+        cout << "One or both users do not exist." << endl;
+        return false;
+    }
+    return network.hasEdge(id1, id2);
+}
+
+void removeUser(Graph& network, const string& username) {
+    int userId = getUserIDByUsername(username);
+    if (userId == -1) {
+        cout << "User not found." << endl;
+        return;
+    }
+    network.removeVertex(userId);
+    users.erase(userId);
+    cout << "User removed successfully." << endl;
+}
+
+int findDistanceBetweenUsers(Graph& network, const string& username1, const string& username2) {
+    int id1 = getUserIDByUsername(username1);
+    int id2 = getUserIDByUsername(username2);
+    if (id1 == -1 || id2 == -1) {
+        cout << "One or both users do not exist." << endl;
+        return -1;
+    }
+    return network.shortestPath(id1, id2);
+}
+
+void visualizeNetwork(Graph& network) {
+    network.printGraph();
+}
+
+void printUserDetails(const string& username) {
+    int userId = getUserIDByUsername(username);
+    if (userId == -1) {
+        cout << "User does not exist." << endl;
+        return;
+    }
+    User user = users[userId];
+    cout << "Username: " << user.getUsername() << endl;
+    cout << "Email: " << user.getMail() << endl;
+    cout << "name: " << user.getName() << endl;
+    cout << "last name: " << user.getLastName() << endl;
+    cout << "phone number: " << user.getPhoneNumber() << endl;
+}
+
+
+
+
 void menu() {
     cout << "Enter a number from 1 to 20" << endl;
     cout << "1: Initialize the network" << endl;
