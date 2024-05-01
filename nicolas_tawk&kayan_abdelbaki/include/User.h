@@ -1,3 +1,7 @@
+#ifndef USER_H
+#define USER_H
+
+
 #include <vector>
 #include <iostream>
 using namespace std;
@@ -9,11 +13,8 @@ public:
     User(string username);
     string getName() const;
     int getId() const;
-    vector<User*> getConnections();
     void setName(string name);
     void setId(int id);
-    void addConnection(User* user);
-    void removeConnection(User* user);
     void printUserInfo() const;
     void setEmail(string mail);
     void setPhoneNumber(int number);
@@ -34,3 +35,5 @@ private:
     int phoneNumber;
     vector<User*> connections;
 };
+
+#endif

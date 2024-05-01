@@ -8,31 +8,31 @@
 using namespace std;
 
 struct Edge {
-    int dest; 
+    int dest;
 };
 
 
 struct Vertex {
     int id;
-    list<Edge> adjacencyList; 
+    list<Edge> adjacencyList;
 
-    Vertex(int id);
+
 };
 
 class Graph {
 public:
     Graph() = default;
-  
+
     int shortestPath(int srcId, int destId);
-    void removeVertex(int id);
+    bool removeVertex(int id);
     bool hasEdge(int srcId, int destId);
     void addVertex(int id);
-    void addEdge(int srcId, int destId);
-    void removeEdge(int srcId, int destId);
+    bool addEdge(int srcId, int destId);
+    bool removeEdge(int srcId, int destId);
     void printGraph();
 
 private:
-    vector<Vertex> vertices; 
+    vector<Vertex> vertices;
 };
 
 #endif 

@@ -1,5 +1,5 @@
-#include "Graph.h"
-#include "User.h"
+#include "../include/Graph.h"
+#include "../include/User.h"
 #include <iostream>
 #include <unordered_map>
 using namespace std;
@@ -22,7 +22,7 @@ void addUser(Graph network) {
     User user = User(username);
 
     int id = getUserIDByUsername(username);
-    users[id] = user ;
+    users[id] = user;
     network.addVertex(id);
 }
 
@@ -131,16 +131,38 @@ void handleChoice(Graph network, int choice) {
     switch (choice) {
     case 1:
         cout << "hello";
-            break;
-     
+        break;
+    case 2:
+
+        addUser(network);
+        break;
+    case 3:
+        addConnection(network);
+        break;
+    case 4:
+        removeConnection(network);
+        break;
+    case 5:
+        checkConnection(network, "kayan", "nic");
+        break;
+    case 6:
+        cout << "Enter the username of the user you want to remove";
+
+        removeUser(network, "kayan");
+        break;
+    case 7:
+        visualizeNetwork(network);
+        break;
+
     }
 }
 int main() {
-    Graph network =  Graph();
+    Graph network = Graph();
+    /*
     User alice("alice");
     User bob("bob");
     User sam("sam");
-    
+
     network.addVertex(1);
     network.addVertex(2);
     network.addVertex(3);
@@ -153,7 +175,8 @@ int main() {
     network.removeEdge(1, 2);
 
     network.printGraph();
-   
+    */
+
 
     int choice;
     do {
@@ -163,9 +186,9 @@ int main() {
             cout << "Make sure the number is between 1 and 15 inclusively" << endl;
             cin >> choice;
         }
-       // handleChoice(choice);
-        
-    }while (choice != 15);
+         handleChoice(network, choice);
+
+    } while (choice != 15);
 
 
     return 0;

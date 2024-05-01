@@ -1,25 +1,21 @@
 // Graph.cpp
 
-#include "Graph.h"
+#include "../include/Graph.h"
 #include <iostream>
 #include <iostream>
 #include <algorithm>
 #include <limits>
 #include <queue>
-//Vertex::Vertex(int id) : id(id) {}
 
-
-//void Graph::addVertex(int id) {
-    //vertices.push_back(id);
-//}
 void Graph::addVertex(int id) {
-    Vertex newVertex(id);
+    Vertex newVertex;
+    newVertex.id = id;
     vertices.push_back(newVertex);
 }
 
 
 
-void Graph::addEdge(int srcId, int destId) {
+bool Graph::addEdge(int srcId, int destId) {
     for (auto& vertex : vertices) {
         if (vertex.id == srcId) {
             vertex.adjacencyList.push_back({ destId });
@@ -28,7 +24,7 @@ void Graph::addEdge(int srcId, int destId) {
     }
 }
 
-void Graph::removeEdge(int srcId, int destId) {
+bool Graph::removeEdge(int srcId, int destId) {
     for (auto& vertex : vertices) {
         if (vertex.id == srcId) {
             vertex.adjacencyList.remove_if([destId](const Edge& edge) {
@@ -47,7 +43,7 @@ bool Graph::hasEdge(int srcId, int destId) {
     return false;
 }
 
-void Graph::removeVertex(int id) {
+bool Graph::removeVertex(int id) {
     vertices.erase(remove_if(vertices.begin(), vertices.end(), [id](const Vertex& v) { return v.id == id; }), vertices.end());
     for (auto& vertex : vertices) {
         vertex.adjacencyList.remove_if([id](const Edge& e) { return e.dest == id; });
@@ -56,33 +52,33 @@ void Graph::removeVertex(int id) {
 
 
 int Graph::shortestPath(int srcId, int destId) {
-  // Implementing a BFS for shortest path calculation
-  queue<int> q;
-  vector<int> distances(vertices.size() + 1, numeric_limits<int>::max());  // Assuming vertex IDs start at 1
+    // Implementing a BFS for shortest path calculation
+    queue<int> q;
+    vector<int> distances(vertices.size() + 1, numeric_limits<int>::max());  // Assuming vertex IDs start at 1
 
-  // Find the source vertex index (assuming efficient vertex lookup)
-  auto srcIndex = find_if(vertices.begin(), vertices.end(), [srcId](const Vertex& v) { return v.id == srcId; });
-  if (srcIndex == vertices.end()) return -1;  // Source vertex not found
+    // Find the source vertex index (assuming efficient vertex lookup)
+    auto srcIndex = find_if(vertices.begin(), vertices.end(), [srcId](const Vertex& v) { return v.id == srcId; });
+    if (srcIndex == vertices.end()) return -1;  // Source vertex not found
 
-  // Initialize distances and enqueue source vertex
-  q.push(srcId);
-  distances[srcId] = 0;
+    // Initialize distances and enqueue source vertex
+    q.push(srcId);
+    distances[srcId] = 0;
 
-  while (!q.empty()) {
-    int current = q.front();
-    q.pop();
+    while (!q.empty()) {
+        int current = q.front();
+        q.pop();
 
-    // Iterate through adjacent vertices directly from the current vertex
-    for (const auto& edge : vertices[current].adjacencyList) {
-      if (distances[edge.dest] == numeric_limits<int>::max()) {  // Unvisited neighbor
-        distances[edge.dest] = distances[current] + 1;
-        q.push(edge.dest);
-        if (edge.dest == destId) return distances[edge.dest];  // Destination found, return distance
-      }
+        // Iterate through adjacent vertices directly from the current vertex
+        for (const auto& edge : vertices[current].adjacencyList) {
+            if (distances[edge.dest] == numeric_limits<int>::max()) {  // Unvisited neighbor
+                distances[edge.dest] = distances[current] + 1;
+                q.push(edge.dest);
+                if (edge.dest == destId) return distances[edge.dest];  // Destination found, return distance
+            }
+        }
     }
-  }
 
-  return -1;  // No path found
+    return -1;  // No path found
 }
 
 void Graph::printGraph() {
