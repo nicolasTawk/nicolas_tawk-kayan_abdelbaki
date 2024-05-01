@@ -80,9 +80,6 @@ void User::setId(int id) {
 
 void User::printUserInfo() const {
     cout << "User ID: " << id << ", Name: " << name << std::endl;
-    cout << "Connections: ";
-    for (auto& connection : connections) {
-        cout << connection->name << " ";
-    }
+
     cout << endl;
 }

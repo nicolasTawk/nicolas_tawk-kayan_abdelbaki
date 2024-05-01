@@ -10,8 +10,8 @@ class User {
 public:
 
     User(string name, string username, int phoneNumber, string mail, string lastName);
-    User(string username);
-    string getName() const;
+    explicit User(string username);
+    [[nodiscard]] string getName() const;
     int getId() const;
     void setName(string name);
     void setId(int id);
@@ -33,7 +33,7 @@ private:
     int id;
     string mail;
     int phoneNumber;
-    vector<User*> connections;
+
 };
 
 #endif

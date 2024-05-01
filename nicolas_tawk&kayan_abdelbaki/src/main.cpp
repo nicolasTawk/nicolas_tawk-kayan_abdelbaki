@@ -123,8 +123,13 @@ void menu() {
     cout << "12: traverse the network using BFS" << endl;
     cout << "13: traverse the network using DFS" << endl;
 
-    cout << "14: empty the network" << endl;
-    cout << "15: exit" << endl;
+    cout << "14: find the number of possible ways we can go from one user to another in x hoops"<<endl;
+    cout << "15: illustrate the graph (using ids) " << endl;
+    cout << "16: find the most popular user"<< endl;
+    cout << "17: check if two users are friends" << endl;
+    cout << "18: list the mutuals of two users" << endl;
+    cout << "19: empty the network" << endl;
+    cout << "20: exit" << endl;
 }
 
 void handleChoice(Graph network, int choice) {
