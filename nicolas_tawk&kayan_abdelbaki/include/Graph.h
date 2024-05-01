@@ -40,7 +40,7 @@ public:
     bool addEdge(int srcId, int destId);
     bool removeEdge(int srcId, int destId);
     void DFSUtil(int current, vector<bool>& visited);
-    void DFS(int start);
+    void DFS(int start); //
     void printGraph();
 
 
