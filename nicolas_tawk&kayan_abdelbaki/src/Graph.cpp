@@ -43,7 +43,19 @@ void Graph::addVertex(int id) {
 //     }
 // }
 
+bool Graph::findVertex(int id) {
+    for(auto it : vertices) {
+        if( it.id == id) {
+            return true;
+        }
+    }
+    return false;
+}
+
 bool Graph::addEdge(int srcId, int destId) {
+    if(srcId == destId) {
+        return false;  //self pointing not allowed
+    }
     if(hasEdge(srcId, destId))
         return false;
     for (auto &vertex: vertices) {
@@ -210,6 +222,55 @@ void  Graph::BFS(int start) const {
     return -1; // No path found
 }*/
 
+    vector<int> Graph::findShortestPath(int start, int destination) const {
+
+        //Distance vector stores the shortest distance from the start vertex to all other vertices. Initialize distances to infinity.
+        vector<int> distance(size, INT_MAX);
+
+        //This vector stores the parent vertex of each vertex in the shortest path.
+        //It is initialized with all values set to -1.
+        vector<int> parent(size, -1);
+
+        //This is a queue used for the BFS traversal.It stores vertices to be visited.
+        queue<int> q;
+
+        distance[start] = 0; // Distance to start vertex is 0
+        //The start vertex is pushed onto the queue to begin the BFS traversal.
+        q.push(start);
+
+        while (!q.empty()) {
+            //current is the vertex being processed from the front of the queue.
+            int current = q.front();
+            q.pop();
+
+            if (current == destination)
+                break; // Break if destination is found
+
+            //For each neighbor of the current vertex, we check if
+            //the distance to the neighbor through the current vertex
+            //is shorter than the distance stored in distance[neighbor].
+            for (const Edge & neighbor : vertices[current].adjacencyList) {
+                if (distance[current] + 1 < distance[neighbor.dest]) {
+
+                    //If a shorter path is found, we update the distance to the neighbor
+                    //and set its parent to the current vertex.
+                    //and the neighbor is then added to the queue for further exploration.
+                    distance[neighbor.dest] = distance[current] + 1;
+                    parent[neighbor.dest] = current; // Update parent
+                    q.push(neighbor.dest);
+                }
+            }
+        }
+        vector<int> shortestPath;
+        for (int v = destination; v != -1; v = parent[v])
+            shortestPath.push_back(v);
+
+        //The path is initially constructed in reverse order (from destination to start). We reverse it to obtain the correct order (from start to destination).
+        reverse(shortestPath.begin(), shortestPath.end());
+
+        return shortestPath;
+    }
+
 void Graph::printGraph() {
     for (const auto &vertex: vertices) {
         cout <<vertex.id << "->";
@@ -221,6 +282,8 @@ void Graph::printGraph() {
     }
     cout <<"null"<<endl;
 }
+
+
 
 int main() {
     cout << "hello"<<endl;
@@ -239,6 +302,11 @@ int main() {
     network.addEdge(2, 3);
 
     network.DFS(0);
+    vector<int> v = network.findShortestPath(0,3);
+    for(int i = 0; i < v.size(); i++) {
+        cout << v[i]<< " ";
+    }
+    cout << endl;
 
     network.printGraph();
 

@@ -110,8 +110,8 @@ void printUserDetails(const string& username) {
 void menu() {
     cout << "Enter a number from 1 to 20" << endl;
     cout << "1: Initialize the network" << endl;
-    cout << "2: Add a user to the network " << endl;
-    cout << "3: Add a connection to a user" << endl;
+    cout << "3: Add a user to the network " << endl;
+    cout << "2: Add a connection to a user" << endl;
     cout << "4: remove a connection from a user" << endl;
     cout << "5: check if a user is connected to another" << endl;
     cout << "6: remove a user from the network" << endl;

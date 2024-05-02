@@ -31,8 +31,9 @@ typedef vector<Vertex>::const_iterator VertexIterator;
 class Graph {
 public:
     Graph();
-    VertexIterator findVertex( int id);
+    bool findVertex( int id);
     int shortestPath(int srcId, int destId);
+    vector<int> findShortestPath(int start, int dest) const;
     void BFS(int start) const;
     bool removeVertex(int id);
     bool hasEdge(int srcId, int destId);
