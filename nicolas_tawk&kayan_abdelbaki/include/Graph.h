@@ -33,7 +33,7 @@ class Graph {
 public:
     Graph();
     //TODO: method that creates a graph with randomly generated connections
-    void createRandomGraph(int size);
+    // void createRandomGraph(int size);
     bool hasNeighbors(int);
     bool findVertex( int id);
     int shortestPath(int srcId, int destId);
@@ -47,7 +47,7 @@ public:
     void DFSUtil(int current, vector<bool>& visited, vector<int> &);
     vector<int> DFS(int start); //
     //TODO: implement the iterative DFS method
-    vector<int> DFSiterative(int &);
+    // vector<int> DFSiterative(int &);
     void printGraph();
     [[nodiscard]] vector<Vertex> getVertices() const;
 

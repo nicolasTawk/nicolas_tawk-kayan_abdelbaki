@@ -5,8 +5,8 @@ using namespace std;
 
 //we used this static variable in order to keep track of the next id that can be used without duplication
 int User::nextID = 0;
-
-User::User(const string& username = "", const string &fullName = "", const string& email = "", const string& phoneNumber = "") {
+User::User() : username("Unknown") {this->id = nextID++;}
+User::User(const string& username , const string &fullName = "", const string& email = "", const string& phoneNumber = "") {
     //auto incrementing the id as we create new objects from the class user
     this->id = nextID++;
     setUsername(username);
@@ -71,8 +71,9 @@ istream &operator>>(istream &is, User &user) {
     cout << "Enter username: ";
     is >> user.username;
     cout << "Enter full name: ";
-    is.ignore(); // Ignore newline leftover in the stream
-    getline(is, user.fullName);
+    // is.ignore(); // Ignore newline leftover in the stream
+    // getline(is, user.fullName);
+    is >> user.fullName;
     cout << "Enter email: ";
     is >> user.email;
     cout << "Enter phone number: ";
@@ -82,32 +83,32 @@ istream &operator>>(istream &is, User &user) {
 }
 
 
-int main() {
-    // Creating a User with default constructor and setting values using setters
-    User user1;
-    user1.setUsername("johnsmith");
-    user1.setFullName("John Smith");
-    user1.setEmail("john.smith@example.com");
-    user1.setPhoneNumber("1234567890");
-
-    // Display using overloaded output operator
-    cout << "User 1 details:\n" << user1 << endl;
-
-    // Testing input for a new user
-    User user2;
-    cout << "Please enter user 2 details:" << endl;
-    cin >> user2;
-
-    // Displaying the entered data
-    cout << "User 2 details:\n" << user2 << endl;
-
-    // Demonstrating getter methods
-    cout << "Accessing User 2 Details Individually:" << endl;
-    cout << "ID: " << user2.getId() << endl;
-    cout << "Username: " << user2.getUsername() << endl;
-    cout << "Full Name: " << user2.getFullName() << endl;
-    cout << "Email: " << user2.getEMail() << endl;
-    cout << "Phone Number: " << user2.getPhoneNumber() << endl;
-
-    return 0;
-}
+// int main() {
+//     // Creating a User with default constructor and setting values using setters
+//     User user1;
+//     user1.setUsername("johnsmith");
+//     user1.setFullName("John Smith");
+//     user1.setEmail("john.smith@example.com");
+//     user1.setPhoneNumber("1234567890");
+//
+//     // Display using overloaded output operator
+//     cout << "User 1 details:\n" << user1 << endl;
+//
+//     // Testing input for a new user
+//     User user2;
+//     cout << "Please enter user 2 details:" << endl;
+//     cin >> user2;
+//
+//     // Displaying the entered data
+//     cout << "User 2 details:\n" << user2 << endl;
+//
+//     // Demonstrating getter methods
+//     cout << "Accessing User 2 Details Individually:" << endl;
+//     cout << "ID: " << user2.getId() << endl;
+//     cout << "Username: " << user2.getUsername() << endl;
+//     cout << "Full Name: " << user2.getFullName() << endl;
+//     cout << "Email: " << user2.getEMail() << endl;
+//     cout << "Phone Number: " << user2.getPhoneNumber() << endl;
+//
+//     return 0;
+// }

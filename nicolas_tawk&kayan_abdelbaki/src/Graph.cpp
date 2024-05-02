@@ -113,7 +113,7 @@ vector<int> Graph::DFS(const int start) {
 
     DFSUtil(start, visited, result);
     return result;
-    cout << endl;
+
 }
 
 vector<int> Graph::BFS(int start) const {
@@ -240,34 +240,34 @@ vector<Vertex> Graph::getVertices() const {
 
 
 
-int main() {
-    cout << "hello"<<endl;
-    Graph network;
-    network.addVertex(0);
-    network.addVertex(1);
-    network.addVertex(2);
-    network.addVertex(3);
-    network.addVertex(4);
-    network.addVertex(5);
-
-    network.addEdge(1, 2);
-    network.addEdge(4, 5);
-    network.addEdge(1, 3);
-    network.addEdge(2,4);
-
-
-    // vector<int> v =   network.BFS(network.getVertices()[1].id);
-
-
-
-
-     vector<int> v = network.DFS(1);
-    for(int i = 0; i < v.size(); i++) {
-        cout << v[i]<< "->";
-    }
-    cout << endl;
-
-    network.printGraph();
-
-    return 0;
-}
+// int main() {
+//     cout << "hello"<<endl;
+//     Graph network;
+//     network.addVertex(0);
+//     network.addVertex(1);
+//     network.addVertex(2);
+//     network.addVertex(3);
+//     network.addVertex(4);
+//     network.addVertex(5);
+//
+//     network.addEdge(1, 2);
+//     network.addEdge(4, 5);
+//     network.addEdge(1, 3);
+//     network.addEdge(2,4);
+//
+//
+//     // vector<int> v =   network.BFS(network.getVertices()[1].id);
+//
+//
+//
+//
+//      vector<int> v = network.DFS(1);
+//     for(int i = 0; i < v.size(); i++) {
+//         cout << v[i]<< "->";
+//     }
+//     cout << endl;
+//
+//     network.printGraph();
+//
+//     return 0;
+// }

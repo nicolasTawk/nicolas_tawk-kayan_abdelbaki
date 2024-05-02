@@ -7,7 +7,7 @@ using namespace std;
 
 unordered_map<int, User> users;
 
-int getUserIDByUsername(string username) {
+int getUserIDByUsername(const string& username) {
     for (const auto& pair : users) {
         if (pair.second.getUsername() == username) {
             return pair.first;
@@ -15,13 +15,11 @@ int getUserIDByUsername(string username) {
     }
     return -1;
 }
-void addUser(Graph network) {
-    string username;
-    cout << "Enter the name of the user : ";
-    cin >> username;
-    User user = User(username);
 
-    int id = getUserIDByUsername(username);
+void addUser(Graph network) {
+    User user;
+    cin >> user;
+    const int id = getUserIDByUsername(user.getUsername());
     users[id] = user;
     network.addVertex(id);
 }
@@ -33,10 +31,13 @@ void addConnection(Graph network) {
     cout << "Enter the username of the followed : ";
     cin >> followed;
 
-    int  follower_id = getUserIDByUsername(follower);
-    int followed_id = getUserIDByUsername(followed);
+    const int  follower_id = getUserIDByUsername(follower);
+    const int followed_id = getUserIDByUsername(followed);
     if (follower_id != -1 && followed_id != -1) {
-        network.addEdge(follower_id, followed_id);
+        if(network.addEdge(follower_id, followed_id))
+            cout << "Frienship link added succcesfully"<<endl;
+        else
+            cout <<"Failed to add frienship link"<<endl;
     }
     else {
         cout << "One or both of the users are not in the network" << endl;
@@ -44,7 +45,7 @@ void addConnection(Graph network) {
 
 }
 
-void removeConnection(Graph network) {
+void removeConnection(const Graph& network) {
     string follower, followed;
     cout << "Enter the username of the follower : ";
     cin >> follower;
@@ -76,32 +77,28 @@ void removeUser(Graph& network, const string& username) {
     cout << "User removed successfully." << endl;
 }
 
-int findDistanceBetweenUsers(Graph& network, const string& username1, const string& username2) {
-    int id1 = getUserIDByUsername(username1);
-    int id2 = getUserIDByUsername(username2);
-    if (id1 == -1 || id2 == -1) {
-        cout << "One or both users do not exist." << endl;
-        return -1;
-    }
-    return network.shortestPath(id1, id2);
-}
+// int findDistanceBetweenUsers(Graph& network, const string& username1, const string& username2) {
+//     int id1 = getUserIDByUsername(username1);
+//     int id2 = getUserIDByUsername(username2);
+//     if (id1 == -1 || id2 == -1) {
+//         cout << "One or both users do not exist." << endl;
+//         return -1;
+//     }
+//     return network.shortestPath(id1, id2);
+// }
 
 void visualizeNetwork(Graph& network) {
     network.printGraph();
 }
 
 void printUserDetails(const string& username) {
-    int userId = getUserIDByUsername(username);
+    const int userId = getUserIDByUsername(username);
     if (userId == -1) {
         cout << "User does not exist." << endl;
         return;
     }
-    User user = users[userId];
-    cout << "Username: " << user.getUsername() << endl;
-    cout << "Email: " << user.getMail() << endl;
-    cout << "name: " << user.getName() << endl;
-    cout << "last name: " << user.getLastName() << endl;
-    cout << "phone number: " << user.getPhoneNumber() << endl;
+    const User user = users[userId];
+    cout << user;
 }
 
 
@@ -163,37 +160,32 @@ void handleChoice(Graph network, int choice) {
 }
 int main() {
     Graph network = Graph();
-    /*
-    User alice("alice");
-    User bob("bob");
-    User sam("sam");
+    addUser(network);
 
-    network.addVertex(1);
-    network.addVertex(2);
-    network.addVertex(3);
+    // for(int i = 0 ; i < users.size(); i++) {
+    //     cout << users[i];
+    // }
 
-    network.addEdge(1, 2);
-    network.addEdge(1, 3);
+    // network.printGraph();
+    string username;
 
-    network.printGraph();
-
-    network.removeEdge(1, 2);
-
-    network.printGraph();
-    */
+    cout << "Enter the username: ";
+    cin >>username;
+    printUserDetails(username);
 
 
-    int choice;
-    do {
-        menu();
-        cin >> choice;
-        while (choice < 1 || choice > 15) {
-            cout << "Make sure the number is between 1 and 15 inclusively" << endl;
-            cin >> choice;
-        }
-         handleChoice(network, choice);
 
-    } while (choice != 15);
+    // int choice;
+    // do {
+    //     menu();
+    //     cin >> choice;
+    //     while (choice < 1 || choice > 15) {
+    //         cout << "Make sure the number is between 1 and 15 inclusively" << endl;
+    //         cin >> choice;
+    //     }
+    //      handleChoice(network, choice);
+    //
+    // } while (choice != 15);
 
 
     return 0;

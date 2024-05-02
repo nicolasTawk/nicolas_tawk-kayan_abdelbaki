@@ -7,7 +7,7 @@ using namespace std;
 class User {
 public:
     //constructor
-
+    User();
     User(const string &, const string &, const string &, const string &);
 
     //setters
