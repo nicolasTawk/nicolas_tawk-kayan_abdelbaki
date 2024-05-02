@@ -13,6 +13,7 @@ struct Edge {
 
 
 struct Vertex {
+
     int id;
     list<Edge> adjacencyList;
 
@@ -31,22 +32,28 @@ typedef vector<Vertex>::const_iterator VertexIterator;
 class Graph {
 public:
     Graph();
+    //TODO: method that creates a graph with randomly generated connections
+    void createRandomGraph(int size);
+    bool hasNeighbors(int);
     bool findVertex( int id);
     int shortestPath(int srcId, int destId);
-    vector<int> findShortestPath(int start, int dest) const;
-    void BFS(int start) const;
+    [[nodiscard]] vector<int> findShortestPath(int start, int dest) const;
+    vector<int> BFS(int start) const;
     bool removeVertex(int id);
     bool hasEdge(int srcId, int destId);
     void addVertex(int id);
     bool addEdge(int srcId, int destId);
     bool removeEdge(int srcId, int destId);
-    void DFSUtil(int current, vector<bool>& visited);
-    void DFS(int start); //
+    void DFSUtil(int current, vector<bool>& visited, vector<int> &);
+    vector<int> DFS(int start); //
+    //TODO: implement the iterative DFS method
+    vector<int> DFSiterative(int &);
     void printGraph();
+    [[nodiscard]] vector<Vertex> getVertices() const;
 
 
 private:
-    int size{};
+    int size;
     vector<Vertex> vertices;
 };
 

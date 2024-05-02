@@ -4,73 +4,52 @@
 using namespace std;
 
 //we used this static variable in order to keep track of the next id that can be used without duplication
-int User::nextID = 1;
+int User::nextID = 0;
 
-
-
-User::User(string name, string username = "", int phoneNumber = 0, string mail = "", string lastName = "") {
+User::User(const string& username = "", const string &fullName = "", const string& email = "", const string& phoneNumber = "") {
     //auto incrementing the id as we create new objects from the class user
     this->id = nextID++;
-    setName(name);
-    setEmail(mail);
-    setLastName(lastName);
+    setUsername(username);
+    setFullName(fullName);
+    setEmail(email);
     setPhoneNumber(phoneNumber);
-    setUsername(username);
 
 }
 
-User::User(string username) {
-    this->id = nextID++;
-    setName("");
-    setEmail("");
-    setLastName("");
-    setPhoneNumber(0);
-    setUsername(username);
-}
-
-//getters and setters to the class in order to acess or change private data members exclusevley
-string User::getName() const {
-    return name;
-}
-
-string User::getUsername() const {
-    return username;
-}
-
-void User::setUsername(string username) {
-    this->username = username;
-}
-
-void User::setLastName(string lastName) {
-    this->lastName = lastName;
-}
-
-string User::getLastName() const {
-    return lastName;
-}
+//getters
 
 int User::getId() const {
     return id;
 }
-
-void User::setName(string name) {
-    this->name = name;
+string User::getUsername() const {
+    return username;
+}
+string User::getFullName() const {
+    return fullName;
 }
 
-void User::setEmail(string mail) {
-    this->mail = mail;
+string User::getEMail() const {
+    return this->email;
 }
-
-void User::setPhoneNumber(int number) {
-    phoneNumber = number;
-}
-
-string User::getMail() const {
-    return this->mail;
-}
-
-int User::getPhoneNumber() const {
+string User::getPhoneNumber() const {
     return this->phoneNumber;
+}
+
+//setters
+void User::setUsername(const string &username) {
+    this->username = username;
+}
+
+void User::setFullName(const string &fullName) {
+    this->fullName = fullName;
+}
+
+void User::setEmail(const string &email) {
+    this->email = email;
+}
+
+void User::setPhoneNumber(const string &phoneNumber) {
+    this->phoneNumber = phoneNumber;
 }
 
 // this set method is there if we want to overload the ids
@@ -78,8 +57,57 @@ void User::setId(int id) {
     this->id = id;
 }
 
-void User::printUserInfo() const {
-    cout << "User ID: " << id << ", Name: " << name << std::endl;
+std::string User::toString() const {
+    return "Username: " + username + ", Full Name: " + fullName +
+           ", Email: " + email + ", Phone Number: " + phoneNumber;
+}
 
-    cout << endl;
+std::ostream& operator<<(std::ostream& os, const User& user) {
+    os << user.toString();
+    return os;
+}
+
+istream &operator>>(istream &is, User &user) {
+    cout << "Enter username: ";
+    is >> user.username;
+    cout << "Enter full name: ";
+    is.ignore(); // Ignore newline leftover in the stream
+    getline(is, user.fullName);
+    cout << "Enter email: ";
+    is >> user.email;
+    cout << "Enter phone number: ";
+    is >> user.phoneNumber;
+
+    return is;
+}
+
+
+int main() {
+    // Creating a User with default constructor and setting values using setters
+    User user1;
+    user1.setUsername("johnsmith");
+    user1.setFullName("John Smith");
+    user1.setEmail("john.smith@example.com");
+    user1.setPhoneNumber("1234567890");
+
+    // Display using overloaded output operator
+    cout << "User 1 details:\n" << user1 << endl;
+
+    // Testing input for a new user
+    User user2;
+    cout << "Please enter user 2 details:" << endl;
+    cin >> user2;
+
+    // Displaying the entered data
+    cout << "User 2 details:\n" << user2 << endl;
+
+    // Demonstrating getter methods
+    cout << "Accessing User 2 Details Individually:" << endl;
+    cout << "ID: " << user2.getId() << endl;
+    cout << "Username: " << user2.getUsername() << endl;
+    cout << "Full Name: " << user2.getFullName() << endl;
+    cout << "Email: " << user2.getEMail() << endl;
+    cout << "Phone Number: " << user2.getPhoneNumber() << endl;
+
+    return 0;
 }

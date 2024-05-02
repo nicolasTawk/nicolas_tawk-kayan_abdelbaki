@@ -1,39 +1,54 @@
 #ifndef USER_H
 #define USER_H
-
-
 #include <vector>
 #include <iostream>
 using namespace std;
+
 class User {
-
 public:
+    //constructor
 
-    User(string name, string username, int phoneNumber, string mail, string lastName);
-    explicit User(string username);
-    [[nodiscard]] string getName() const;
-    int getId() const;
-    void setName(string name);
-    void setId(int id);
-    void printUserInfo() const;
-    void setEmail(string mail);
-    void setPhoneNumber(int number);
-    string getMail() const;
-    int getPhoneNumber() const;
-    string getLastName() const;
-    void setLastName(string lastName);
-    void setUsername(string username);
-    string getUsername() const;
+    User(const string &, const string &, const string &, const string &);
+
+    //setters
+    void setId(int);
+
+    void setUsername(const string &);
+
+    void setFullName(const string &);
+
+    void setEmail(const string &);
+
+    void setPhoneNumber(const string &);
+
+    //getters
+    [[nodiscard]] int getId() const;
+
+    [[nodiscard]] string getUsername() const;
+
+    [[nodiscard]] string getFullName() const;
+
+    [[nodiscard]] string getEMail() const;
+
+    [[nodiscard]] string getPhoneNumber() const;
+
+    //additionalMethods
+
+    [[nodiscard]] string toString() const;
+
+    friend ostream &operator<<(ostream &os, const User &user);
+
+    friend istream &operator>>(istream &is, User &user);
 
 private:
-    string username;
-    string name;
-    string lastName;
-    static int nextID;
+    //datafields
     int id;
-    string mail;
-    int phoneNumber;
-
+    string username;
+    string fullName;
+    string email;
+    string phoneNumber;
+    static int nextID;
 };
+
 
 #endif
