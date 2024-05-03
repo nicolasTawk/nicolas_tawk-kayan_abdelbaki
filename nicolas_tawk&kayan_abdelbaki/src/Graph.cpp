@@ -9,7 +9,6 @@
 using namespace std;
 
 
-
 Graph::Graph() {
     this->size = 0;
 }
@@ -22,8 +21,8 @@ void Graph::addVertex(int id) {
 }
 
 bool Graph::findVertex(int id) {
-    for(auto it : vertices) {
-        if( it.id == id) {
+    for (auto it: vertices) {
+        if (it.id == id) {
             return true;
         }
     }
@@ -31,18 +30,13 @@ bool Graph::findVertex(int id) {
 }
 
 bool Graph::addEdge(int srcId, int destId) {
-    if(srcId == destId) {
+    if (srcId == destId) {
         cout << "equal";
-        return false;  //self pointing not allowed
+        return false; //self pointing not allowed
     }
-    if(hasEdge(srcId, destId)) {
+    if (hasEdge(srcId, destId)) {
         cout << "already has";
         return false;
-    }
-    cout << srcId<<endl;
-    cout << destId << endl;
-    for (auto &vertex: vertices) {
-        cout <<vertex.id;
     }
     for (auto &vertex: vertices) {
         if (destId == vertex.id) {
@@ -89,24 +83,23 @@ bool Graph::removeVertex(int id) {
     }
 
     // Remove the vertex
-    vertices.erase(std::remove_if(vertices.begin(), vertices.end(), [id](const Vertex &v) { return v.id == id; }), vertices.end());
+    vertices.erase(std::remove_if(vertices.begin(), vertices.end(), [id](const Vertex &v) { return v.id == id; }),
+                   vertices.end());
 
     // Remove all edges in other vertices pointing to this id
-    for (auto &vertex : vertices) {
+    for (auto &vertex: vertices) {
         vertex.adjacencyList.remove_if([id](const Edge &e) { return e.dest == id; });
     }
     size--;
     return true;
 }
 
-void Graph::DFSUtil(int current, vector<bool>& visited, vector<int>& result) {
-
+void Graph::DFSUtil(int current, vector<bool> &visited, vector<int> &result) {
     visited[current] = true;
     // cout << current << " ";
     result.push_back(current);
 
-    for (const Edge & neighbor: vertices[current].adjacencyList) {
-
+    for (const Edge &neighbor: vertices[current].adjacencyList) {
         if (!visited[neighbor.dest]) {
             DFSUtil(neighbor.dest, visited, result);
         }
@@ -122,7 +115,6 @@ vector<int> Graph::DFS(const int start) {
 
     DFSUtil(start, visited, result);
     return result;
-
 }
 
 vector<int> Graph::BFS(int start) const {
@@ -134,16 +126,12 @@ vector<int> Graph::BFS(int start) const {
 
     q.push(start);
     while (!q.empty()) {
-
         int current = q.front();
         result.push_back(current);
         q.pop();
 
-        for (const Edge & neighbor : vertices[current].adjacencyList) {
-
+        for (const Edge &neighbor: vertices[current].adjacencyList) {
             if (!visited[neighbor.dest]) {
-
-
                 visited[neighbor.dest] = true;
 
                 q.push(neighbor.dest);
@@ -153,6 +141,10 @@ vector<int> Graph::BFS(int start) const {
 
     return result;
 }
+void Graph::emptyNetwork() {
+    vertices.clear();
+}
+
 
 
 //TODO : this function needs fixing
@@ -186,67 +178,88 @@ vector<int> Graph::BFS(int start) const {
 
     return -1; // No path found
 }*/
-    bool inline Graph::hasNeighbors(int id) {
+bool inline Graph::hasNeighbors(int id) {
     return !vertices[id].adjacencyList.empty();
 }
-    bool isValidPath(vector<int> path, int start,int dest) {
+
+bool Graph::isValidPath(vector<int> path, int start, int dest) {
     return path.front() == start && path.back() == dest;
 }
-    vector<int> Graph::findShortestPath(int start, int destination) const {
 
-        vector distance(size, INT_MAX);
-        vector parent(size, -1);
-
-
-        queue<int> q;
-
-        distance[start] = 0;
-        q.push(start);
-
-        while (!q.empty()) {
-            int current = q.front();
-            cout << current << " ";
-
-            q.pop();
-
-            if (current == destination)
-                break;
-
-
-            for (const Edge & neighbor : vertices[current].adjacencyList) {
-                if (distance[current] + 1 < distance[neighbor.dest]) {
-                    distance[neighbor.dest] = distance[current] + 1;
-                    parent[neighbor.dest] = current;
-                    q.push(neighbor.dest);
-                }
+vector<int> Graph::getIncomingVertices( int id) {
+    std::vector<int> incomingVertices;
+    for (const auto& vertex : vertices) {
+        for (const auto& edge : vertex.adjacencyList) {
+            if (edge.dest == id) {  // Check if edge points to vertexId
+                incomingVertices.push_back(vertex.id);  // Add the source vertex's ID
+                break;  // Break to avoid adding the same vertex ID multiple times if multiple edges point to vertexId
             }
         }
-        vector<int> shortestPath;
-        for (int v = destination; v != -1; v = parent[v])
-            shortestPath.push_back(v);
-
-        reverse(shortestPath.begin(), shortestPath.end());
-    cout << endl;
-        return shortestPath;
-
     }
+    return incomingVertices;
+}
+
+vector<int> Graph::getOutgoingVertices(int id) {
+    vector<int> dests;
+    for (const Edge& edge : vertices[id].adjacencyList) {
+        dests.push_back(edge.dest);
+        cout << edge.dest;
+    }
+    return dests;
+}
+
+vector<int> Graph::findShortestPath(int start, int destination) const {
+    vector distance(size, INT_MAX);
+    vector parent(size, -1);
+
+
+    queue<int> q;
+
+    distance[start] = 0;
+    q.push(start);
+
+    while (!q.empty()) {
+        int current = q.front();
+        cout << current << " ";
+
+        q.pop();
+
+        if (current == destination)
+            break;
+
+
+        for (const Edge &neighbor: vertices[current].adjacencyList) {
+            if (distance[current] + 1 < distance[neighbor.dest]) {
+                distance[neighbor.dest] = distance[current] + 1;
+                parent[neighbor.dest] = current;
+                q.push(neighbor.dest);
+            }
+        }
+    }
+    vector<int> shortestPath;
+    for (int v = destination; v != -1; v = parent[v])
+        shortestPath.push_back(v);
+
+    reverse(shortestPath.begin(), shortestPath.end());
+    cout << endl;
+    return shortestPath;
+}
 
 void Graph::printGraph() {
     for (const auto &vertex: vertices) {
-        cout <<vertex.id << "->";
+        cout << vertex.id << "->";
         for (const auto &edge: vertex.adjacencyList) {
             cout << edge.dest << "->";
         }
-        cout << "null" <<endl;
+        cout << "null" << endl;
         cout << "|\n";
     }
-    cout <<"null"<<endl;
+    cout << "null" << endl;
 }
 
 vector<Vertex> Graph::getVertices() const {
     return vertices;
 }
-
 
 
 // int main() {

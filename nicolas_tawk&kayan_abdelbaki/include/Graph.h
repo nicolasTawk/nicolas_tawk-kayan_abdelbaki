@@ -45,9 +45,14 @@ public:
     bool addEdge(int srcId, int destId);
     bool removeEdge(int srcId, int destId);
     void DFSUtil(int current, vector<bool>& visited, vector<int> &);
+    void emptyNetwork();
     vector<int> DFS(int start); //
     //TODO: implement the iterative DFS method
     // vector<int> DFSiterative(int &);
+
+    bool isValidPath(vector<int> , int , int );
+    vector<int> getOutgoingVertices(int );
+    vector<int> getIncomingVertices(int );
     void printGraph();
     [[nodiscard]] vector<Vertex> getVertices() const;
 
