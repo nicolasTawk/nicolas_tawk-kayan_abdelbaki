@@ -57,6 +57,10 @@ void User::setId(int id) {
     this->id = id;
 }
 
+// int getUserIDByUsername() {
+//
+// }
+
 std::string User::toString() const {
     return "Username: " + username + ", Full Name: " + fullName +
            ", Email: " + email + ", Phone Number: " + phoneNumber;
@@ -68,7 +72,8 @@ std::ostream& operator<<(std::ostream& os, const User& user) {
 }
 
 istream &operator>>(istream &is, User &user) {
-    cout << "Enter username: ";
+
+    cout << " Enter username: ";
     is >> user.username;
     cout << "Enter full name: ";
     // is.ignore(); // Ignore newline leftover in the stream

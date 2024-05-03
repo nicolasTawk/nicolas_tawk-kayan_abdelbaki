@@ -32,10 +32,18 @@ bool Graph::findVertex(int id) {
 
 bool Graph::addEdge(int srcId, int destId) {
     if(srcId == destId) {
+        cout << "equal";
         return false;  //self pointing not allowed
     }
-    if(hasEdge(srcId, destId))
+    if(hasEdge(srcId, destId)) {
+        cout << "already has";
         return false;
+    }
+    cout << srcId<<endl;
+    cout << destId << endl;
+    for (auto &vertex: vertices) {
+        cout <<vertex.id;
+    }
     for (auto &vertex: vertices) {
         if (destId == vertex.id) {
             for (auto &vertex: vertices) {
@@ -46,6 +54,7 @@ bool Graph::addEdge(int srcId, int destId) {
             }
         }
     }
+    cout << "neither";
     return false;
 }
 
