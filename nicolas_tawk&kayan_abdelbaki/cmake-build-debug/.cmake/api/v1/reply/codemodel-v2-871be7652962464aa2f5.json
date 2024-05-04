@@ -1,0 +1,78 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.28"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "ADS",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "graph::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-graph-Debug-87b41da4b916f72d5976.json",
+					"name" : "graph",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "main::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-main-Debug-e1a65479d39344a2dbe2.json",
+					"name" : "main",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "user::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-user-Debug-e3b43efb936bee379654.json",
+					"name" : "user",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/Users/nicolastawk/CLionProjects/nicolas_tawk-kayan_abdelbaki1/nicolas_tawk&kayan_abdelbaki/cmake-build-debug",
+		"source" : "/Users/nicolastawk/CLionProjects/nicolas_tawk-kayan_abdelbaki1/nicolas_tawk&kayan_abdelbaki"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}

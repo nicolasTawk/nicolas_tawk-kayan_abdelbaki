@@ -1,0 +1,5 @@
+/Users/nicolastawk/CLionProjects/nicolas_tawk-kayan_abdelbaki1/nicolas_tawk&kayan_abdelbaki/cmake-build-debug/CMakeFiles/main.dir
+/Users/nicolastawk/CLionProjects/nicolas_tawk-kayan_abdelbaki1/nicolas_tawk&kayan_abdelbaki/cmake-build-debug/CMakeFiles/graph.dir
+/Users/nicolastawk/CLionProjects/nicolas_tawk-kayan_abdelbaki1/nicolas_tawk&kayan_abdelbaki/cmake-build-debug/CMakeFiles/user.dir
+/Users/nicolastawk/CLionProjects/nicolas_tawk-kayan_abdelbaki1/nicolas_tawk&kayan_abdelbaki/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/nicolastawk/CLionProjects/nicolas_tawk-kayan_abdelbaki1/nicolas_tawk&kayan_abdelbaki/cmake-build-debug/CMakeFiles/rebuild_cache.dir

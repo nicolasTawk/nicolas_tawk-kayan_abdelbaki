@@ -9,141 +9,192 @@
 using namespace std;
 
 
+/**
+ * Initializes a graph with zero vertices and edges.
+ */
 Graph::Graph() {
-    this->size = 0;
+    this->size = 0; // Set initial size to zero.
 }
 
+/**
+ * Adds a vertex to the graph.
+ * @param id Unique identifier for the vertex.
+ */
 void Graph::addVertex(int id) {
-    Vertex v;
-    v.id = id;
-    vertices.push_back(v);
-    size++;
+    Vertex v; // Create a new vertex instance.
+    v.id = id; // Assign ID to the vertex.
+    vertices.push_back(v); // Add vertex to the vertex list.
+    size++; // Increment the count of vertices in the graph.
 }
 
+/**
+ * Searches for a vertex by ID.
+ * @param id The ID of the vertex to find.
+ * @return True if the vertex is found, otherwise false.
+ */
 bool Graph::findVertex(int id) {
-    for (auto it: vertices) {
+    for (auto it : vertices) {
         if (it.id == id) {
-            return true;
+            return true; // Vertex found.
         }
     }
-    return false;
+    return false; // Vertex not found.
 }
 
+/**
+ * Adds an edge between two vertices if it does not already exist.
+ * @param srcId Source vertex ID.
+ * @param destId Destination vertex ID.
+ * @return True if edge is added, false if not (including self-loops or existing edge).
+ */
 bool Graph::addEdge(int srcId, int destId) {
     if (srcId == destId) {
         cout << "equal";
-        return false; //self pointing not allowed
+        return false; // Prevents self-looping.
     }
     if (hasEdge(srcId, destId)) {
         cout << "already has";
-        return false;
+        return false; // Prevents duplicate edges.
     }
-    for (auto &vertex: vertices) {
-        if (destId == vertex.id) {
-            for (auto &vertex: vertices) {
-                if (vertex.id == srcId) {
-                    vertex.adjacencyList.push_back({destId});
-                    return true;
-                }
-            }
+    for (auto &vertex : vertices) {
+        if (vertex.id == srcId) {
+            vertex.adjacencyList.push_back({destId});
+            return true; // Edge successfully added.
         }
     }
     cout << "neither";
-    return false;
+    return false; // Both vertices must exist to add an edge.
 }
 
+/**
+ * Removes an edge between two vertices.
+ * @param srcId Source vertex ID.
+ * @param destId Destination vertex ID.
+ * @return True if the edge is removed, otherwise false.
+ */
 bool Graph::removeEdge(int srcId, int destId) {
-    for (auto &vertex: vertices) {
+    for (auto &vertex : vertices) {
         if (vertex.id == srcId) {
-            vertex.adjacencyList.remove_if([destId](const Edge &edge) {
+            auto &edges = vertex.adjacencyList;
+            auto originalSize = edges.size();
+            edges.remove_if([destId](const Edge &edge) {
                 return edge.dest == destId;
             });
-            break;
+            return edges.size() != originalSize; // Returns true if size changed (edge was removed).
         }
     }
-    return false;
+    return false; // No changes made if conditions not met.
 }
 
+/**
+ * Checks if there is an edge between two vertices.
+ * @param srcId Source vertex ID.
+ * @param destId Destination vertex ID.
+ * @return True if such an edge exists, otherwise false.
+ */
 bool Graph::hasEdge(int srcId, int destId) {
-    auto src = find_if(vertices.begin(), vertices.end(), [srcId](const Vertex &v) { return v.id == srcId; });
-    if (src != vertices.end()) {
-        return any_of(src->adjacencyList.begin(), src->adjacencyList.end(),
-                      [destId](const Edge &e) { return e.dest == destId; });
+    auto srcIt = find_if(vertices.begin(), vertices.end(), [srcId](const Vertex &v) { return v.id == srcId; });
+    if (srcIt != vertices.end()) {
+        return any_of(srcIt->adjacencyList.begin(), srcIt->adjacencyList.end(), [destId](const Edge &e) {
+            return e.dest == destId;
+        });
     }
     return false;
 }
 
+/**
+ * Removes a vertex and all its associated edges from the graph.
+ * @param id ID of the vertex to remove.
+ * @return True if the vertex is successfully removed, false if it does not exist.
+ */
 bool Graph::removeVertex(int id) {
-    // First, check if the vertex to be removed actually exists
-    auto it = std::find_if(vertices.begin(), vertices.end(), [id](const Vertex &v) { return v.id == id; });
-
+    auto it = find_if(vertices.begin(), vertices.end(), [id](const Vertex &v) { return v.id == id; });
     if (it == vertices.end()) {
-        // Vertex not found
-        return false;
+        return false; // Vertex not found.
     }
-
-    // Remove the vertex
-    vertices.erase(std::remove_if(vertices.begin(), vertices.end(), [id](const Vertex &v) { return v.id == id; }),
-                   vertices.end());
-
-    // Remove all edges in other vertices pointing to this id
-    for (auto &vertex: vertices) {
+    // Remove the vertex and all edges pointing to or from it.
+    vertices.erase(remove_if(vertices.begin(), vertices.end(), [id](const Vertex &v) { return v.id == id; }), vertices.end());
+    for (auto &vertex : vertices) {
         vertex.adjacencyList.remove_if([id](const Edge &e) { return e.dest == id; });
     }
-    size--;
+    size--; // Decrement the count of vertices.
     return true;
 }
 
+/**
+ * Utility method for performing Depth-First Search (DFS) from a given vertex.
+ * This method marks the vertex as visited and recursively visits all unvisited neighboring vertices.
+ *
+ * @param current The current vertex index.
+ * @param visited A reference to a vector tracking which vertices have been visited.
+ * @param result A reference to a vector accumulating the order of visited vertices.
+ */
 void Graph::DFSUtil(int current, vector<bool> &visited, vector<int> &result) {
     visited[current] = true;
-    // cout << current << " ";
-    result.push_back(current);
-
-    for (const Edge &neighbor: vertices[current].adjacencyList) {
+    result.push_back(current); // Include this vertex in the result vector.
+    // Recurse for all adjacent vertices.
+    for (const Edge &neighbor : vertices[current].adjacencyList) {
         if (!visited[neighbor.dest]) {
             DFSUtil(neighbor.dest, visited, result);
         }
     }
 }
 
+/**
+ * Initiates a Depth-First Search starting from the specified vertex.
+ * This method prepares necessary data structures and starts the recursive DFS process.
+ *
+ * @param start The starting vertex index for the DFS.
+ * @return A vector of vertex indices representing the DFS traversal order.
+ */
 vector<int> Graph::DFS(const int start) {
-    vector<bool> visited(vertices.size(), false);
-    // cout << size << endl;
-    vector<int> result;
-
-    // cout << "DFS starting from vertex " << start << ": ";
-
-    DFSUtil(start, visited, result);
+    vector<bool> visited(vertices.size(), false); // Track visited status of vertices.
+    vector<int> result; // Store the traversal result.
+    DFSUtil(start, visited, result); // Start the DFS from the given vertex.
     return result;
 }
 
+/**
+ * Performs a Breadth-First Search (BFS) starting from the specified vertex.
+ * This method uses a queue to explore all vertices level by level according to their distance from the start vertex.
+ *
+ * @param start The starting vertex index for the BFS.
+ * @return A vector of vertex indices representing the BFS traversal order.
+ */
 vector<int> Graph::BFS(int start) const {
-    vector<int> result;
-    vector visited(size, false);
+    vector<bool> visited(size, false); // Track visited status of vertices.
+    queue<int> q; // Queue to manage the frontier vertices.
+    vector<int> result; // Store the traversal result.
 
-    queue<int> q;
-    visited[start] = true;
+    visited[start] = true; // Mark the start vertex as visited.
+    q.push(start); // Enqueue the start vertex.
 
-    q.push(start);
+    // Process the queue until empty.
     while (!q.empty()) {
         int current = q.front();
-        result.push_back(current);
         q.pop();
+        result.push_back(current); // Add the current vertex to the result.
 
-        for (const Edge &neighbor: vertices[current].adjacencyList) {
+        // Process all adjacent vertices.
+        for (const Edge &neighbor : vertices[current].adjacencyList) {
             if (!visited[neighbor.dest]) {
-                visited[neighbor.dest] = true;
-
-                q.push(neighbor.dest);
+                visited[neighbor.dest] = true; // Mark vertex as visited.
+                q.push(neighbor.dest); // Enqueue the vertex.
             }
         }
     }
 
     return result;
 }
+
+/**
+ * Clears all vertices and their associated edges from the graph, resetting it to an empty state.
+ */
 void Graph::emptyNetwork() {
-    vertices.clear();
+    vertices.clear(); // Clear all vertices.
+    size = 0; // Reset the size of the graph to zero.
 }
+
 
 
 
