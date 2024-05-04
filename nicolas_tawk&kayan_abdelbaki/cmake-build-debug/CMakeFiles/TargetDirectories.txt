@@ -1,0 +1,5 @@
+C:/Users/Lenovo/CLionProjects/nicolas_tawk-kayan_abdelbaki/nicolas_tawk&kayan_abdelbaki/cmake-build-debug/CMakeFiles/main.dir
+C:/Users/Lenovo/CLionProjects/nicolas_tawk-kayan_abdelbaki/nicolas_tawk&kayan_abdelbaki/cmake-build-debug/CMakeFiles/graph.dir
+C:/Users/Lenovo/CLionProjects/nicolas_tawk-kayan_abdelbaki/nicolas_tawk&kayan_abdelbaki/cmake-build-debug/CMakeFiles/user.dir
+C:/Users/Lenovo/CLionProjects/nicolas_tawk-kayan_abdelbaki/nicolas_tawk&kayan_abdelbaki/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Lenovo/CLionProjects/nicolas_tawk-kayan_abdelbaki/nicolas_tawk&kayan_abdelbaki/cmake-build-debug/CMakeFiles/rebuild_cache.dir

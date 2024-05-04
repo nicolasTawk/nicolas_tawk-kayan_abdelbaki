@@ -1,0 +1,20 @@
+# ninja log v5
+14	1016	7362710357043124	CMakeFiles/untitled.dir/src/Graph.cpp.obj	da8feb8f14f17f75
+22	677	7362710353646452	CMakeFiles/untitled.dir/src/User.cpp.obj	8f144efd8061f26c
+33	1730	7363834983146754	CMakeFiles/graph.dir/src/Graph.cpp.obj	96470606368f436a
+1731	1968	7363834985466922	graph.exe	4a853cd8a627bde3
+24	770	7363841757823578	build.ninja	35090fe58d4b8508
+30	933	7363840428465433	CMakeFiles/user.dir/src/User.cpp.obj	5cb4ae1bdd7834fa
+934	1084	7363840429954921	user.exe	ef19bb1107b309fd
+33	653	7364622871103075	CMakeFiles/main.dir/src/User.cpp.obj	44482e5d9d98caf4
+28	1194	7364622876503223	CMakeFiles/main.dir/src/Graph.cpp.obj	b37da0d04e9df3f7
+22	1237	7364622876953329	CMakeFiles/main.dir/src/main.cpp.obj	5537dfe892a53559
+1237	1463	7364622879192882	main.exe	9da303edc041684e
+42	637	7364659649491589	CMakeFiles/main.dir/src/User.cpp.obj	44482e5d9d98caf4
+37	1169	7364659654820600	CMakeFiles/main.dir/src/Graph.cpp.obj	b37da0d04e9df3f7
+30	1327	7364659656376343	CMakeFiles/main.dir/src/main.cpp.obj	5537dfe892a53559
+1327	1593	7364659659000985	main.exe	9da303edc041684e
+36	676	7364675951840919	CMakeFiles/main.dir/src/User.cpp.obj	44482e5d9d98caf4
+30	1136	7364675956413933	CMakeFiles/main.dir/src/Graph.cpp.obj	b37da0d04e9df3f7
+24	1290	7364675957971949	CMakeFiles/main.dir/src/main.cpp.obj	5537dfe892a53559
+1290	1539	7364675960425714	main.exe	9da303edc041684e
