@@ -38,7 +38,7 @@ public:
     bool findVertex( int id);
     int shortestPath(int srcId, int destId);
     [[nodiscard]] vector<int> findShortestPath(int start, int dest) const;
-    vector<int> BFS(int start) const;
+    [[nodiscard]] vector<int> BFS(int start) const;
     bool removeVertex(int id);
     bool hasEdge(int srcId, int destId);
     void addVertex(int id);
