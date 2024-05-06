@@ -165,9 +165,6 @@ void getFollowings(Graph &network) {
     cout << "end" << endl;
 }
 
-void getMostPopular(Graph &network) {
-}
-
 void getMutuals(Graph &network) {
     string username1, username2;
     cout << "Enter the username of the first user: ";

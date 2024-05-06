@@ -141,43 +141,27 @@ vector<int> Graph::BFS(int start) const {
 
     return result;
 }
+
 void Graph::emptyNetwork() {
     vertices.clear();
 }
 
+int Graph::countPathsUtil(int src, int dest, int hops, int x) {
+    if (hops > x) return 0;
+    if (src == dest && hops == x) return 1;
+    if (hops == x) return 0;
 
-
-//TODO : this function needs fixing
-/*int Graph::shortestPath(int srcId, int destId) {
-    // Implementing a BFS for shortest path calculation
-    queue<int> q;
-    vector<int> distances(vertices.size() + 1, numeric_limits<int>::max()); // Assuming vertex IDs start at 1
-
-    // Find the source vertex index (assuming efficient vertex lookup)
-    auto srcIndex = find_if(vertices.begin(), vertices.end(), [srcId](const Vertex &v) { return v.id == srcId; });
-    if (srcIndex == vertices.end()) return -1; // Source vertex not found
-
-    // Initialize distances and enqueue source vertex
-    q.push(srcId);
-    distances[srcId] = 0;
-
-    while (!q.empty()) {
-        int current = q.front();
-        q.pop();
-
-        // Iterate through adjacent vertices directly from the current vertex
-        for (const auto &edge: vertices[current].adjacencyList) {
-            if (distances[edge.dest] == numeric_limits<int>::max()) {
-                // Unvisited neighbor
-                distances[edge.dest] = distances[current] + 1;
-                q.push(edge.dest);
-                if (edge.dest == destId) return distances[edge.dest]; // Destination found, return distance
-            }
-        }
+    int count = 0;
+    for (const Edge& neighbor: vertices[src].adjacencyList) {
+        count += countPathsUtil(neighbor.dest, dest, hops + 1, x);
     }
+    return count;
+}
 
-    return -1; // No path found
-}*/
+int Graph::countPaths(int src, int dest, int x) {
+    return countPathsUtil(src, dest, 0, x);
+}
+
 bool inline Graph::hasNeighbors(int id) {
     return !vertices[id].adjacencyList.empty();
 }
@@ -186,13 +170,14 @@ bool Graph::isValidPath(vector<int> path, int start, int dest) {
     return path.front() == start && path.back() == dest;
 }
 
-vector<int> Graph::getIncomingVertices( int id) {
+vector<int> Graph::getIncomingVertices(int id) {
     std::vector<int> incomingVertices;
-    for (const auto& vertex : vertices) {
-        for (const auto& edge : vertex.adjacencyList) {
-            if (edge.dest == id) {  // Check if edge points to vertexId
-                incomingVertices.push_back(vertex.id);  // Add the source vertex's ID
-                break;  // Break to avoid adding the same vertex ID multiple times if multiple edges point to vertexId
+    for (const auto &vertex: vertices) {
+        for (const auto &edge: vertex.adjacencyList) {
+            if (edge.dest == id) {
+                // Check if edge points to vertexId
+                incomingVertices.push_back(vertex.id); // Add the source vertex's ID
+                break; // Break to avoid adding the same vertex ID multiple times if multiple edges point to vertexId
             }
         }
     }
@@ -201,7 +186,7 @@ vector<int> Graph::getIncomingVertices( int id) {
 
 vector<int> Graph::getOutgoingVertices(int id) {
     vector<int> dests;
-    for (const Edge& edge : vertices[id].adjacencyList) {
+    for (const Edge &edge: vertices[id].adjacencyList) {
         dests.push_back(edge.dest);
         cout << edge.dest;
     }
