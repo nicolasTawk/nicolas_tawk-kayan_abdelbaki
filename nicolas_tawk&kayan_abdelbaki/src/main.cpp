@@ -4,12 +4,15 @@
 #include "../include/User.h"
 #include <iostream>
 #include <unordered_map>
+#include <fstream>
+#include <map>
+
 using namespace std;
 
 
 static int nextId = 0;
 // handling ids in the main class since username is a unique identifier and we only need an int value to work in graphs
-unordered_map<int, User> users; // Maps user IDs to User objects
+map<int, User> users; // Maps user IDs to User objects
 unordered_map<string, int> usernameToId; // For fast username lookup
 
 
@@ -96,7 +99,7 @@ void findShortestPath(Graph &network) {
     for (const int &id: shortestPath) {
         cout << "(" + to_string(id) + ":" + users[id].getUsername() + ")" << "->";
     }
-    cout << "done"<< endl;
+    cout << "done" << endl;
     cout << "The degree of connectivity = " + to_string(shortestPath.size() - 1) << endl;
 }
 
@@ -121,7 +124,7 @@ void BFS(Graph &network) {
     for (const int &id: BFS) {
         cout << "(" + to_string(id) + ":" + users[id].getUsername() + ")" << "->";
     }
-    cout << "done"<< endl;
+    cout << "done" << endl;
     if (BFS.size() == users.size())
         cout << "All vertices were vistied!" << endl;
 }
@@ -171,7 +174,7 @@ void getMutuals(Graph &network) {
     cin >> username1;
     cout << "Enter the username of the second user: ";
     cin >> username2;
-    const int id1= usernameToId[username1];
+    const int id1 = usernameToId[username1];
     const int id2 = usernameToId[username2];
     if (id1 == -1 || id2 == -1) {
         cout << "One or both users do not exist." << endl;
@@ -203,7 +206,7 @@ void printUserDetails() {
         cout << "User does not exist." << endl;
         return;
     }
-    cout << users[id]<< endl;
+    cout << users[id] << endl;
 }
 
 void checkFrienshipDegree(Graph &network) {
@@ -227,6 +230,31 @@ void checkFrienshipDegree(Graph &network) {
     } else {
         cout << "None of the users follow each other" << endl;
     }
+}
+
+void getNumberOfPaths(Graph &network) {
+    string username1, username2;
+    int hops;
+    cout << "Enter the username of the first user: ";
+    cin >> username1;
+    cout << "Enter the username of the second user: ";
+    cin >> username2;
+    int id1 = usernameToId[username1];
+    int id2 = usernameToId[username2];
+    if (id1 == -1 || id2 == -1) {
+        cout << "One or both users do not exist." << endl;
+        return;
+    }
+
+    cout << "Enter the number of hoops :";
+    cin >> hops;
+    cout << endl;
+
+    cout << "The number of possible ways to go from ("
+            + to_string(id1) + ":" + username1 + ") to ("
+            + to_string(id2) + ":" + username2 + ") is "
+            + to_string(network.countPaths(id1, id2, hops))<<endl;
+
 }
 
 void emptyNetwork(Graph &network) {
@@ -296,7 +324,7 @@ void handleChoice(Graph &network, int choice) {
             getFollowings(network);
             break;
         case 13:
-            cout << "not done yet" << endl;
+            getNumberOfPaths(network);
             break;
         case 14:
             cout << "not done yet" << endl;
@@ -308,16 +336,86 @@ void handleChoice(Graph &network, int choice) {
             emptyNetwork(network);
             break;
         case 17:
-            cout << "Goodbye"<<endl;
+            cout << "Goodbye" << endl;
+            break;
         default:
             cout << "invalid choice" << endl;
             break;
     }
 }
 
+void saveToFiles(Graph &network) {
+    ofstream outFile("network.txt");
+
+    // Check if the file was successfully opened/created
+    if (!outFile) {
+        std::cerr << "Error opening or creating file." << std::endl;
+    }
+    for (auto &pair: users) {
+        cout << pair.first << "  ";
+        vector<int> dests = network.getOutgoingVertices(pair.first);
+        outFile << pair.first << "#" << pair.second.getUsername() << "#" << pair.second.getFullName()
+                << "#" << pair.second.getEMail() << "#" << pair.second.getPhoneNumber();
+        for (const int dest: dests) {
+            outFile << "#" << dest;
+        }
+        outFile << endl;
+    }
+
+    // Close the file
+    outFile.close();
+}
+
+//helper method to split the lines in a file
+vector<std::string> splitString(std::string_view strv, char delim = '#') {
+    std::vector<std::string> result;
+    size_t start = 0;
+    size_t end = strv.find(delim);
+
+    while (end != std::string_view::npos) {
+        result.emplace_back(strv.substr(start, end - start));
+        start = end + 1;
+        end = strv.find(delim, start);
+    }
+
+    result.emplace_back(strv.substr(start));
+    return result;
+}
+
+
+void loadFromFiles(Graph &network) {
+    std::ifstream inFile("network.txt");
+    if (!inFile) {
+        std::cerr << "Unable to open file." << std::endl;
+    }
+    string line;
+    vector<string> tokens;
+    while (getline(inFile, line)) {
+        tokens = splitString(line);
+        int id = stoi(tokens[0]);
+        User user(tokens[1], tokens[2], tokens[3], tokens[4]);
+        users[id] = user;
+        usernameToId[user.getUsername()] = id;
+        network.addVertex(id);
+        nextId++;
+    }
+    inFile.clear();
+
+    // Move the file pointer back to the beginning
+    inFile.seekg(0, std::ios::beg);
+
+    while (getline(inFile, line)) {
+        tokens = splitString(line);
+        int srcId = stoi(tokens[0]);
+        for (int i = 5; i < tokens.size(); ++i) {
+            network.addEdge(srcId, stoi(tokens[i]));
+        }
+    }
+}
+
 int main() {
     Graph network = Graph();
-
+    loadFromFiles(network);
     int choice;
     do {
         menu();
@@ -328,17 +426,8 @@ int main() {
         }
         handleChoice(network, choice);
     } while (choice != 17);
+    saveToFiles(network);
 
 
     return 0;
-}
-
-// TODO : saveToFiles (functions that saves data in a file)
-void saveToFiles(Graph & network) {
-
-}
-
-// TODO : loadFromFiles (functions that loads data from a file)
-void loadToFiles(Graph & network) {
-
 }

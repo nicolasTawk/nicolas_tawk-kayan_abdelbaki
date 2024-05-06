@@ -46,6 +46,8 @@ public:
     bool removeEdge(int srcId, int destId);
     void DFSUtil(int current, vector<bool>& visited, vector<int> &);
     void emptyNetwork();
+    int countPathsUtil(int,int,int,int);
+    int countPaths(int, int ,int);
     vector<int> DFS(int start); //
     //TODO: implement the iterative DFS method
     // vector<int> DFSiterative(int &);

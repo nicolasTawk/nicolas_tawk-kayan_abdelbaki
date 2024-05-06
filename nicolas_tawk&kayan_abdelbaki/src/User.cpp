@@ -3,12 +3,9 @@
 #include <vector>
 using namespace std;
 
-//we used this static variable in order to keep track of the next id that can be used without duplication
-int User::nextID = 0;
-User::User() : username("Unknown") {this->id = nextID++;}
+User::User() : username("Unknown") {}
 User::User(const string& username , const string &fullName = "", const string& email = "", const string& phoneNumber = "") {
     //auto incrementing the id as we create new objects from the class user
-    this->id = nextID++;
     setUsername(username);
     setFullName(fullName);
     setEmail(email);
@@ -18,9 +15,6 @@ User::User(const string& username , const string &fullName = "", const string& e
 
 //getters
 
-int User::getId() const {
-    return id;
-}
 string User::getUsername() const {
     return username;
 }
@@ -52,15 +46,6 @@ void User::setPhoneNumber(const string &phoneNumber) {
     this->phoneNumber = phoneNumber;
 }
 
-// this set method is there if we want to overload the ids
-void User::setId(int id) {
-    this->id = id;
-}
-
-// int getUserIDByUsername() {
-//
-// }
-
 std::string User::toString() const {
     return "Username: " + username + ", Full Name: " + fullName +
            ", Email: " + email + ", Phone Number: " + phoneNumber;
@@ -76,9 +61,8 @@ istream &operator>>(istream &is, User &user) {
     cout << " Enter username: ";
     is >> user.username;
     cout << "Enter full name: ";
-    // is.ignore(); // Ignore newline leftover in the stream
-    // getline(is, user.fullName);
-    is >> user.fullName;
+    is.ignore(); // Ignore newline leftover in the stream
+     getline(is, user.fullName);
     cout << "Enter email: ";
     is >> user.email;
     cout << "Enter phone number: ";
@@ -116,4 +100,4 @@ istream &operator>>(istream &is, User &user) {
 //     cout << "Phone Number: " << user2.getPhoneNumber() << endl;
 //
 //     return 0;
-// }
+// }1

@@ -1,6 +1,5 @@
 #ifndef USER_H
 #define USER_H
-#include <vector>
 #include <iostream>
 using namespace std;
 
@@ -11,7 +10,6 @@ public:
     User(const string &, const string &, const string &, const string &);
 
     //setters
-    void setId(int);
 
     void setUsername(const string &);
 
@@ -22,7 +20,6 @@ public:
     void setPhoneNumber(const string &);
 
     //getters
-    [[nodiscard]] int getId() const;
 
     [[nodiscard]] string getUsername() const;
 
@@ -42,12 +39,10 @@ public:
 
 private:
     //datafields
-    int id;
     string username;
     string fullName;
     string email;
     string phoneNumber;
-    static int nextID;
 };
 
 

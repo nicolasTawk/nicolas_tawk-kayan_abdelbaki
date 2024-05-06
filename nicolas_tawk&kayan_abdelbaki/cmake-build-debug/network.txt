@@ -1,0 +1,3 @@
+0#kayan#1#1#a#1#2
+1#lara#a#a#a#0#2
+2#rodi#a#a#a
