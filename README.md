@@ -15,7 +15,7 @@ Design Decisions and Considerations:
 When we have to decide which data structure, we need to use for this algorithm’s efficiency to be maximized, we need to take into consideration various factors like the time complexity and space complexity of the operations.
 To solve such a problem, three data structures are suitable for algorithms that use graphs: adjacency lists, adjacency matrix, and edge lists. But to know which one is the most efficient, we need to look deeper into our problem and see which data structure will best fit our requirements.
 
-2. **Space Efficiency:** Adjacency lists require less memory, especially for graphs, as they only store information about connected vertices, unlike the adjacency matrix, which stores information about all the possible connections. For example, if we had 5 vertices and 4 connections, the adjacency list would store 5 + 4 = 9 worth of memory units. However, the adjacency matrix will store 5^2, or 25 memory units.
+1. **Space Efficiency:** Adjacency lists require less memory, especially for graphs, as they only store information about connected vertices, unlike the adjacency matrix, which stores information about all the possible connections. For example, if we had 5 vertices and 4 connections, the adjacency list would store 5 + 4 = 9 worth of memory units. However, the adjacency matrix will store 5^2, or 25 memory units.
 2.	**Dynamic Nature:** Adjacency lists allow for efficient insertion and deletion of edges, making them suitable for dynamic graphs where vertices and edges are frequently added or removed (which is our case here; frequent insertion and deletion is essential for our problem).
 3.	**Traversal Efficiency:** Adjacency lists facilitate the efficient traversal of adjacent vertices. Traversal algorithms, such as Breadth-First Search (BFS) and Depth-First Search (DFS), can be implemented more efficiently using adjacency lists compared to adjacency matrices or edge lists.
  
@@ -34,7 +34,7 @@ Since our main goal is to implement an algorithm that would find the shortest pa
 
 The project underwent testing using integration tests. Test cases covered various scenarios, including:
 
-2. **Adding and removing vertices and edges:** The testing covered the cases of adding a connection where the source and destination are identical, adding a connection that already exists, trying to remove a vertex/connection that does not exist, and many other specific cases were gracefully handled.
+1. **Adding and removing vertices and edges:** The testing covered the cases of adding a connection where the source and destination are identical, adding a connection that already exists, trying to remove a vertex/connection that does not exist, and many other specific cases were gracefully handled.
 2.	**Finding paths between vertices**
 3.	**Handling edge cases such as empty graphs and invalid inputs**
 
